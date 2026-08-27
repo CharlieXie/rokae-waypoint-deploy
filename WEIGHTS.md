@@ -14,3 +14,22 @@
 
 拿到过 2026-08-26 部署包的人：这些文件（除 block_ar 检查点外）已经在那个包里，直接复制或做符号链接即可。
 以后代码 / 文档 / 期望数字有更新，`git pull` 就行；只有新增检查点才需要再传文件。
+
+## 从 GitHub 克隆后的完整流程（等价于"旧包 + 2026-08-27 增量包"）
+
+```bash
+git clone https://github.com/CharlieXie/rokae-waypoint-deploy.git
+cd rokae-waypoint-deploy
+OLD=<2026-08-26 旧包目录>                       # 里面有 models/pi05_base/、checkpoints/8800_…、data/val_ep2_pepper_banana.npz
+mkdir -p models checkpoints
+cp -r "$OLD/models/pi05_base" models/            # 6.8 GB；也可以 ln -s 做符号链接省空间
+cp -r "$OLD"/checkpoints/8800_vlm0.0148_ae0.0040 "$OLD"/checkpoints/4000_vlm0.0385_ae0.0071 checkpoints/
+cp "$OLD/data/val_ep2_pepper_banana.npz" data/
+# block_ar 的两个检查点在 rokae_blockar_delta_20260827.tar.gz 里（增量包，另行传给你）：
+tar xzf rokae_blockar_delta_20260827.tar.gz && cp -r rokae_blockar_delta_20260827/checkpoints/blockar_* checkpoints/
+sha256sum -c SHA256SUMS --quiet                  # 没有输出 = 全部文件（代码 + 权重 + 录像）都对
+```
+
+然后按 `SETUP.md` §1–§2 准备 Python 环境（旧包的 `.venv` 可以直接复用：`cp -r "$OLD/.venv" .` 或者软链，依赖没有变化），
+再按 `docs/PROMPT_FOR_BLOCKAR_EXPERIMENT.md` 做实验——它的"第 1 步：叠加增量包"在这条路径下已经等价完成，
+从该步骤里的 `python scripts/check_env.py` 自检开始往下做即可。
