@@ -1,0 +1,40 @@
+# Rokae AR5-5 dual-arm, block_ar planner -- INFERENCE-ONLY config for the policy server.
+# Paths are relative to the package root: run every command from the package root
+# (see SETUP.md).  Every key below is read by the server / model loader; training
+# hyper-parameters were deliberately removed.
+robot_type: rokae
+robot_config_kwargs: {}
+dataset_statistics_path: data/dataset_statistics.json   # TRAIN-split statistics; deployment must use exactly these
+pretrained_weight_path: models/pi05_base                 # PaliGemma base (pi0.5); the checkpoint holds only the LoRA delta
+paligemma_variant: gemma_2b
+action_expert_variant: gemma_300m
+precision: bfloat16
+model_action_dim: 32
+model_proprio_dim: 32
+horizon_steps: 32
+max_duration: 32
+ae_max_token_len: 64
+num_waypoints: 7
+vlm_max_token_len: 320
+norm_type: q99
+planner_mode: block_ar
+planner_use_block_embed: true
+planner_block0_cond: none
+goal_condition_mode: none
+lora_enabled: true
+lora_rank: 16
+lora_alpha: 16
+lora_apply_to: all
+vision_encoder_mode: lora
+skip_masked_cameras: true
+eval:
+  task_suite: null
+  joint_checkpoint: null
+  use_ema: false
+  waypoint_decode:
+    impl: block                  # must match planner_mode: block_ar (token-by-token decoding of a block checkpoint is silent garbage)
+    compact_logits: true
+    early_stop: true
+    respect_prefix_pad: true
+    forbid_terminal_first_waypoint: false
+    profile: false

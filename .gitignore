@@ -1,0 +1,13 @@
+# weights and recordings are distributed separately (see WEIGHTS.md); SHA256SUMS lists their checksums
+/models/
+/checkpoints/
+/data/*.npz
+# runtime artifacts
+.venv/
+.openpi_cache/
+__pycache__/
+*.pyc
+ref*.json
+*.log
+serve*.pid
+schema_*.txt

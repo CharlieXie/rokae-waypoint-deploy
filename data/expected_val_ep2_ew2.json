@@ -1,0 +1,351 @@
+{
+ "summary": {
+  "npz": "data/val_ep2_pepper_banana.npz",
+  "frames": 592,
+  "replans": 21,
+  "reached_t": 613,
+  "round_trip_ms_mean": 2780.5178051903135,
+  "left_joint_mae_rad": 0.04153129666866291,
+  "right_joint_mae_rad": 0.05082400140374722,
+  "grip_acc": 0.8804021703003028,
+  "max_first_row_jump_rad": 0.24443823099136353,
+  "max_tick_jump_rad": 0.16094553470611572
+ },
+ "rows": [
+  {
+   "t": 0,
+   "d": 42,
+   "segments": [
+    10,
+    32
+   ],
+   "left_joint_mae": 0.01520142238587141,
+   "right_joint_mae": 0.002307503717020154,
+   "grip_acc": 1.0,
+   "first_row_jump_rad": 0.018503904342651367,
+   "max_tick_jump_rad": 0.015525221824645996
+  },
+  {
+   "t": 42,
+   "d": 32,
+   "segments": [
+    15,
+    17
+   ],
+   "left_joint_mae": 0.052065473049879074,
+   "right_joint_mae": 0.002873464720323682,
+   "grip_acc": 1.0,
+   "first_row_jump_rad": 0.017295420169830322,
+   "max_tick_jump_rad": 0.013905048370361328
+  },
+  {
+   "t": 74,
+   "d": 39,
+   "segments": [
+    24,
+    15
+   ],
+   "left_joint_mae": 0.03372139856219292,
+   "right_joint_mae": 0.0018946259515359998,
+   "grip_acc": 1.0,
+   "first_row_jump_rad": 0.01615583896636963,
+   "max_tick_jump_rad": 0.03598988056182861
+  },
+  {
+   "t": 113,
+   "d": 38,
+   "segments": [
+    17,
+    21
+   ],
+   "left_joint_mae": 0.05052667483687401,
+   "right_joint_mae": 0.0035725722555071115,
+   "grip_acc": 1.0,
+   "first_row_jump_rad": 0.02215994894504547,
+   "max_tick_jump_rad": 0.012391507625579834
+  },
+  {
+   "t": 151,
+   "d": 38,
+   "segments": [
+    15,
+    23
+   ],
+   "left_joint_mae": 0.03822097182273865,
+   "right_joint_mae": 0.0030255536548793316,
+   "grip_acc": 0.5,
+   "first_row_jump_rad": 0.020613551139831543,
+   "max_tick_jump_rad": 0.015239059925079346
+  },
+  {
+   "t": 189,
+   "d": 18,
+   "segments": [
+    9,
+    9
+   ],
+   "left_joint_mae": 0.03812797740101814,
+   "right_joint_mae": 0.004463834688067436,
+   "grip_acc": 1.0,
+   "first_row_jump_rad": 0.08931457996368408,
+   "max_tick_jump_rad": 0.021827101707458496
+  },
+  {
+   "t": 207,
+   "d": 28,
+   "segments": [
+    15,
+    13
+   ],
+   "left_joint_mae": 0.06470420211553574,
+   "right_joint_mae": 0.017217211425304413,
+   "grip_acc": 1.0,
+   "first_row_jump_rad": 0.035650670528411865,
+   "max_tick_jump_rad": 0.009833574295043945
+  },
+  {
+   "t": 235,
+   "d": 30,
+   "segments": [
+    15,
+    15
+   ],
+   "left_joint_mae": 0.06022041290998459,
+   "right_joint_mae": 0.047225676476955414,
+   "grip_acc": 1.0,
+   "first_row_jump_rad": 0.05654168128967285,
+   "max_tick_jump_rad": 0.022850990295410156
+  },
+  {
+   "t": 265,
+   "d": 28,
+   "segments": [
+    15,
+    13
+   ],
+   "left_joint_mae": 0.0454525463283062,
+   "right_joint_mae": 0.05121045187115669,
+   "grip_acc": 1.0,
+   "first_row_jump_rad": 0.033615320920944214,
+   "max_tick_jump_rad": 0.021026015281677246
+  },
+  {
+   "t": 293,
+   "d": 36,
+   "segments": [
+    18,
+    18
+   ],
+   "left_joint_mae": 0.03132621571421623,
+   "right_joint_mae": 0.05323264002799988,
+   "grip_acc": 0.8472222222222222,
+   "first_row_jump_rad": 0.01895366609096527,
+   "max_tick_jump_rad": 0.016134798526763916
+  },
+  {
+   "t": 329,
+   "d": 36,
+   "segments": [
+    18,
+    18
+   ],
+   "left_joint_mae": 0.03587743267416954,
+   "right_joint_mae": 0.06207136809825897,
+   "grip_acc": 0.5138888888888888,
+   "first_row_jump_rad": 0.04377894103527069,
+   "max_tick_jump_rad": 0.0272599458694458
+  },
+  {
+   "t": 365,
+   "d": 35,
+   "segments": [
+    14,
+    21
+   ],
+   "left_joint_mae": 0.03430594876408577,
+   "right_joint_mae": 0.048356249928474426,
+   "grip_acc": 1.0,
+   "first_row_jump_rad": 0.04006075859069824,
+   "max_tick_jump_rad": 0.02319049835205078
+  },
+  {
+   "t": 400,
+   "d": 38,
+   "segments": [
+    24,
+    14
+   ],
+   "left_joint_mae": 0.016611700877547264,
+   "right_joint_mae": 0.03949383646249771,
+   "grip_acc": 0.5789473684210527,
+   "first_row_jump_rad": 0.019787341356277466,
+   "max_tick_jump_rad": 0.024303019046783447
+  },
+  {
+   "t": 438,
+   "d": 24,
+   "segments": [
+    13,
+    11
+   ],
+   "left_joint_mae": 0.02312988042831421,
+   "right_joint_mae": 0.0854247435927391,
+   "grip_acc": 1.0,
+   "first_row_jump_rad": 0.02664804458618164,
+   "max_tick_jump_rad": 0.03088843822479248
+  },
+  {
+   "t": 462,
+   "d": 28,
+   "segments": [
+    15,
+    13
+   ],
+   "left_joint_mae": 0.047332074493169785,
+   "right_joint_mae": 0.10366439819335938,
+   "grip_acc": 1.0,
+   "first_row_jump_rad": 0.06244039535522461,
+   "max_tick_jump_rad": 0.024487614631652832
+  },
+  {
+   "t": 490,
+   "d": 17,
+   "segments": [
+    10,
+    7
+   ],
+   "left_joint_mae": 0.044833142310380936,
+   "right_joint_mae": 0.06383100152015686,
+   "grip_acc": 1.0,
+   "first_row_jump_rad": 0.03461223840713501,
+   "max_tick_jump_rad": 0.04966723918914795
+  },
+  {
+   "t": 507,
+   "d": 20,
+   "segments": [
+    12,
+    8
+   ],
+   "left_joint_mae": 0.04052533954381943,
+   "right_joint_mae": 0.026618964970111847,
+   "grip_acc": 1.0,
+   "first_row_jump_rad": 0.050643205642700195,
+   "max_tick_jump_rad": 0.024904191493988037
+  },
+  {
+   "t": 527,
+   "d": 31,
+   "segments": [
+    16,
+    15
+   ],
+   "left_joint_mae": 0.037654973566532135,
+   "right_joint_mae": 0.16035020351409912,
+   "grip_acc": 0.04838709677419355,
+   "first_row_jump_rad": 0.09031374752521515,
+   "max_tick_jump_rad": 0.03689432144165039
+  },
+  {
+   "t": 558,
+   "d": 15,
+   "segments": [
+    9,
+    6
+   ],
+   "left_joint_mae": 0.06409399211406708,
+   "right_joint_mae": 0.1268712282180786,
+   "grip_acc": 1.0,
+   "first_row_jump_rad": 0.07664655148983002,
+   "max_tick_jump_rad": 0.16094553470611572
+  },
+  {
+   "t": 573,
+   "d": 7,
+   "segments": [
+    4,
+    3
+   ],
+   "left_joint_mae": 0.07421772181987762,
+   "right_joint_mae": 0.12182178348302841,
+   "grip_acc": 1.0,
+   "first_row_jump_rad": 0.24443823099136353,
+   "max_tick_jump_rad": 0.03910958766937256
+  },
+  {
+   "t": 580,
+   "d": 33,
+   "segments": [
+    29,
+    4
+   ],
+   "left_joint_mae": 0.024007728323340416,
+   "right_joint_mae": 0.04177671670913696,
+   "grip_acc": 1.0,
+   "first_row_jump_rad": 0.05732893943786621,
+   "max_tick_jump_rad": 0.014056950807571411
+  }
+ ],
+ "server_metadata": {
+  "robot": "rokae_dual_arm",
+  "planner_mode": "token_ar",
+  "decode_impl": "compact",
+  "action_layout": "left joints 0..6, left gripper, right joints 0..6, right gripper (0=closed, 1=open)",
+  "control_hz": 30,
+  "image_transform": "PIL BILINEAR squash to 224x224, no crop",
+  "checkpoint": "checkpoints/8800_vlm0.0148_ae0.0040",
+  "request_keys": {
+   "required": [
+    "external",
+    "left_wrist",
+    "right_wrist",
+    "state",
+    "prompt"
+   ],
+   "optional": [
+    "reset",
+    "execute_waypoints",
+    "max_steps",
+    "max_replans"
+   ]
+  },
+  "response_keys": [
+   "actions",
+   "duration",
+   "segment_durations",
+   "done",
+   "done_reason",
+   "waypoints",
+   "planner_ms",
+   "ae_ms",
+   "budget",
+   "server_timing"
+  ],
+  "execute_waypoints_default": 1,
+  "task_budgets": {
+   "shelf": {
+    "max_steps": 2373,
+    "max_replans": 95
+   },
+   "pepper_banana": {
+    "max_steps": 2013,
+    "max_replans": 150
+   },
+   "swap": {
+    "max_steps": 1749,
+    "max_replans": 138
+   }
+  },
+  "default_budget": {
+   "max_steps": 2373,
+   "max_replans": 150
+  },
+  "stall_stop_replans": 0,
+  "done_reasons": [
+   "terminal_plan",
+   "step_budget",
+   "replan_budget",
+   "stalled"
+  ]
+ }
+}
