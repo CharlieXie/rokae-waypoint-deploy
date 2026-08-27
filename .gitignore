@@ -1,6 +1,7 @@
-# weights and recordings are distributed separately (see WEIGHTS.md); SHA256SUMS lists their checksums
-/models/
-/checkpoints/
+# Only two files are too large for GitHub (100 MiB hard limit per file) and are distributed
+# separately (see WEIGHTS.md); SHA256SUMS lists their checksums.  The LoRA checkpoints (98 MiB
+# each) and models/pi05_base/config.json ARE tracked.
+/models/pi05_base/model.safetensors
 /data/*.npz
 # runtime artifacts
 .venv/

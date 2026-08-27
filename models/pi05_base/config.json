@@ -1,0 +1,7 @@
+{
+  "action_dim": 32,
+  "action_horizon": 10,
+  "paligemma_variant": "gemma_2b",
+  "action_expert_variant": "gemma_300m",
+  "precision": "bfloat16"
+}
