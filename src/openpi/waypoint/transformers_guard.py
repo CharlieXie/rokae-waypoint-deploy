@@ -31,10 +31,16 @@ two paths cannot drift apart.
 
 from __future__ import annotations
 
+from collections.abc import Sequence
 import hashlib
 import os
 from pathlib import Path
 
+# The set as of 2026-08-28.  This is a *floor*, not the definition: the guard
+# discovers the real list from the repository copy (see
+# ``discover_replacement_files``) so that a sixth replacement file added later is
+# covered automatically.  A file listed here that discovery cannot find means the
+# repository copy is damaged, and the guard fails closed.
 TRANSFORMERS_REPLACEMENT_FILES = (
     "models/gemma/configuration_gemma.py",
     "models/gemma/modeling_gemma.py",
@@ -42,6 +48,10 @@ TRANSFORMERS_REPLACEMENT_FILES = (
     "models/siglip/check.py",
     "models/siglip/modeling_siglip.py",
 )
+
+# Build artefacts that live inside a python package but are not part of it.
+_IGNORED_DIRECTORY_NAMES = frozenset({"__pycache__", ".ipynb_checkpoints"})
+_IGNORED_SUFFIXES = frozenset({".pyc", ".pyo", ".pyd", ".so"})
 
 INSTALL_HINT = (
     "copy src/openpi/models_pytorch/transformers_replace/* into the active "
@@ -62,12 +72,50 @@ def sha256_file(path: str | os.PathLike[str]) -> str:
     return digest.hexdigest()
 
 
-def replacement_tree_fingerprint(root: Path) -> tuple[str, dict[str, str]]:
-    """Fingerprint the exact transformers replacement files under ``root``."""
+def discover_replacement_files(source_root: Path) -> tuple[str, ...]:
+    """Every file openpi overlays onto transformers, read off the repository copy.
+
+    Enumerating a hardcoded list is the bug this function exists to remove: a
+    sixth file added to ``transformers_replace/`` would have been overlaid onto
+    the runtime package and never hashed, so the fingerprint would not change and
+    the guard would pass on an environment it had not actually checked.  The
+    directory itself is therefore the source of truth.
+
+    Returns sorted POSIX-style relative paths, so the fingerprint does not depend
+    on filesystem iteration order.  ``TRANSFORMERS_REPLACEMENT_FILES`` is enforced
+    as a floor: a known file that is not on disk means the repository copy is
+    damaged, which must not be silently fingerprinted as "a smaller overlay".
+    """
+    if not source_root.is_dir():
+        raise FileNotFoundError(f"transformers replacement directory is missing: {source_root}")
+    discovered = sorted(
+        path.relative_to(source_root).as_posix()
+        for path in source_root.rglob("*")
+        if path.is_file()
+        and path.suffix not in _IGNORED_SUFFIXES
+        and not _IGNORED_DIRECTORY_NAMES.intersection(path.relative_to(source_root).parts)
+    )
+    missing = [known for known in TRANSFORMERS_REPLACEMENT_FILES if known not in discovered]
+    if missing:
+        raise FileNotFoundError(
+            f"transformers replacement files are missing from {source_root}: {missing}"
+        )
+    return tuple(discovered)
+
+
+def replacement_tree_fingerprint(root: Path, relative_paths: Sequence[str]) -> tuple[str, dict[str, str]]:
+    """Fingerprint ``relative_paths`` as they exist under ``root``.
+
+    The caller passes the file list (from ``discover_replacement_files``) so that
+    the same set is hashed on both sides of the comparison -- the repository copy
+    and the live transformers package.  A file present in the repository but
+    absent from the runtime package raises, which is the "you added a replacement
+    file and forgot to install it" case.
+    """
     combined = hashlib.sha256()
     combined.update(b"openpi-transformers-replacement-v1\0")
     per_file: dict[str, str] = {}
-    for relative_path in TRANSFORMERS_REPLACEMENT_FILES:
+    for relative_path in relative_paths:
         path = root / relative_path
         if not path.is_file():
             raise FileNotFoundError(f"transformers replacement file is missing: {path}")
@@ -115,8 +163,9 @@ def transformers_replacement_provenance(repo_root: Path) -> dict[str, str]:
     source_root = Path(repo_root) / "src/openpi/models_pytorch/transformers_replace"
 
     try:
-        source_sha, source_files = replacement_tree_fingerprint(source_root)
-        runtime_sha, runtime_files = replacement_tree_fingerprint(runtime_root)
+        replacement_files = discover_replacement_files(source_root)
+        source_sha, source_files = replacement_tree_fingerprint(source_root, replacement_files)
+        runtime_sha, runtime_files = replacement_tree_fingerprint(runtime_root, replacement_files)
     except (OSError, FileNotFoundError) as exc:
         raise RuntimeError(
             f"transformers replacement files are incomplete; {INSTALL_HINT}: {exc}"
@@ -124,7 +173,7 @@ def transformers_replacement_provenance(repo_root: Path) -> dict[str, str]:
 
     mismatched = [
         relative_path
-        for relative_path in TRANSFORMERS_REPLACEMENT_FILES
+        for relative_path in replacement_files
         if source_files[relative_path] != runtime_files[relative_path]
     ]
     if mismatched or runtime_sha != source_sha:
