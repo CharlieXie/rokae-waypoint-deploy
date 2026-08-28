@@ -55,6 +55,8 @@ import numpy as np
 import torch
 import yaml
 
+from openpi.waypoint import transformers_guard
+
 logger = logging.getLogger(__name__)
 
 IMAGE_KEY_MAP = {"external": "base_0_rgb", "left_wrist": "left_wrist_0_rgb", "right_wrist": "right_wrist_0_rgb",
@@ -274,6 +276,12 @@ class RokaeWaypointPolicy:
         ``EpisodeBudget``; per-request keys in ``obs`` override them.
         ``terminal_stop_agree``: 0 (default) = the planner's end marker is only reported
         (``plan_ends_in``); N > 0 = stop when the last N plans agree on it (``TerminalAgreement``)."""
+        # 投产推理路径此前不做任何 transformers 替换校验：上游那道检查只在
+        # Pi0Pytorch.__init__ 里，而 waypoint 这条线从不构造 Pi0Pytorch。全新 venv 或
+        # 重装 transformers 都会静默改掉注意力语义，而重装正是恢复流程的默认步骤。
+        self.transformers_provenance = transformers_guard.assert_transformers_replacement(
+            caller="RokaeWaypointPolicy"
+        )
         if execute_waypoints not in (1, 2):
             raise ValueError("execute_waypoints must be 1 or 2")
         self.execute_waypoints = int(execute_waypoints)
